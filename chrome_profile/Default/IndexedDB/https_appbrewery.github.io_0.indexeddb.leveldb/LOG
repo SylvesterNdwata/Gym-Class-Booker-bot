@@ -1,3 +1,21 @@
-2026/02/08-14:45:30.590 10dd4 Reusing MANIFEST C:\Users\ndwat\OneDrive\python\PycharmProjects\Gym Class Booker bot\chrome_profile\Default\IndexedDB\https_appbrewery.github.io_0.indexeddb.leveldb/MANIFEST-000001
-2026/02/08-14:45:30.590 10dd4 Recovering log #13
-2026/02/08-14:45:30.613 10dd4 Reusing old log C:\Users\ndwat\OneDrive\python\PycharmProjects\Gym Class Booker bot\chrome_profile\Default\IndexedDB\https_appbrewery.github.io_0.indexeddb.leveldb/000013.log 
+2026/02/08-17:46:17.457 b210 Reusing MANIFEST C:\Users\ndwat\OneDrive\python\PycharmProjects\Gym Class Booker bot\chrome_profile\Default\IndexedDB\https_appbrewery.github.io_0.indexeddb.leveldb/MANIFEST-000001
+2026/02/08-17:46:17.458 b210 Recovering log #13
+2026/02/08-17:46:17.490 b210 Reusing old log C:\Users\ndwat\OneDrive\python\PycharmProjects\Gym Class Booker bot\chrome_profile\Default\IndexedDB\https_appbrewery.github.io_0.indexeddb.leveldb/000013.log 
+2026/02/08-17:46:55.273 b210 Level-0 table #18: started
+2026/02/08-17:46:55.289 b210 Level-0 table #18: 991034 bytes OK
+2026/02/08-17:46:55.290 b210 Delete type=0 #13
+2026/02/08-17:46:55.295 8470 Compacting 1@1 + 1@2 files
+2026/02/08-17:46:55.313 8470 Generated table #19@1: 15617 keys, 722572 bytes
+2026/02/08-17:46:55.313 8470 Compacted 1@1 + 1@2 files => 722572 bytes
+2026/02/08-17:46:55.314 8470 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/02/08-17:46:55.314 8470 Delete type=2 #15
+2026/02/08-17:46:55.314 8470 Delete type=2 #18
+2026/02/08-17:46:55.315 8470 Level-0 table #21: started
+2026/02/08-17:46:55.327 8470 Level-0 table #21: 871503 bytes OK
+2026/02/08-17:46:55.329 8470 Delete type=0 #17
+2026/02/08-17:47:27.168 b210 Compacting 1@1 + 1@2 files
+2026/02/08-17:47:27.179 b210 Generated table #22@1: 1802 keys, 60274 bytes
+2026/02/08-17:47:27.180 b210 Compacted 1@1 + 1@2 files => 60274 bytes
+2026/02/08-17:47:27.180 b210 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/02/08-17:47:27.180 b210 Delete type=2 #19
+2026/02/08-17:47:27.180 b210 Delete type=2 #21
