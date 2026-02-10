@@ -34,17 +34,26 @@ bot.get(GYM_URL)
 def login():
     login_button = bot.find_element(By.CSS_SELECTOR, value="button.Navigation_button__uyKX2 ")
     login_button.click()
-
+    
     email_input = bot.find_element(By.ID, value="email-input")
+    email_input.clear()
     email_input.send_keys(ACCOUNT_EMAIL)
 
     password_input = bot.find_element(By.ID, value="password-input")
+    password_input.clear()
     password_input.send_keys(ACCOUNT_PASSWORD)
 
     submit_button = bot.find_element(By.CLASS_NAME, value="Login_submitButton__tJFna ")
     submit_button.click()
     
-    wait.until(ec.presence_of_element_located(By.ID, value="schedule-page"))
+    try:
+        if "Network request failed. Please try again." in bot.find_element(By.CSS_SELECTOR, value="form#login-form div.Login_errorMessage__5r698").text:
+            raise TimeoutException
+    except NoSuchElementException:
+        return
+    
+    
+    # wait.until(ec.presence_of_element_located(By.ID, value="schedule-page"))
     
 
 def retry(func, retries=7, description=None):
@@ -88,16 +97,15 @@ def book_class(date, time):
             elif "Booked" in book_button.text:
                 print(f"✔️ Booked class on {actual_date.text} at {class_time.text}")
                 return True
-    print(f"❌ No class found on {date} at {time}")
-    return False
+    raise TimeoutException(f"Class on {date} at {time} not found or booking failed.")
     
-if book_class("Tue", "6:00 PM"):
-    total_classes_booked += 1
-    booked_now += 1
+# if book_class("Tue", "6:00 PM"):
+#     total_classes_booked += 1
+#     booked_now += 1
     
-if book_class("Thu", "6:00 PM"):
-    total_classes_booked += 1
-    booked_now += 1
+# if book_class("Thu", "6:00 PM"):
+#     total_classes_booked += 1
+#     booked_now += 1
     
             
 # print("---BOOKING SUMMARY---")
@@ -106,25 +114,32 @@ if book_class("Thu", "6:00 PM"):
 # print(f"Already booked/waitlisted classes: {total_already_booked}")
 # print(f"Waitlist joined: {waitlist_joined}")
 
-my_bookings_page = bot.find_element(By.CSS_SELECTOR, value="nav.Navigation_nav__AzWPY a[id='my-bookings-link']")
-my_bookings_page.click()
+def get_my_bookings():
+    my_bookings_page = bot.find_element(By.CSS_SELECTOR, value="nav.Navigation_nav__AzWPY a[id='my-bookings-link']")
+    my_bookings_page.click()
+    global actual_bookings
 
-try:
-    bookings = bot.find_elements(By.CSS_SELECTOR, value="div[id^='booking-card-']")
-    waitlists = bot.find_elements(By.CSS_SELECTOR, value="div[id^='waitlist-card-']")
-except NoSuchElementException:
-    print("No bookings found.")
+    try:
+        bookings = bot.find_elements(By.CSS_SELECTOR, value="div[id^='booking-card-']")
+        waitlists = bot.find_elements(By.CSS_SELECTOR, value="div[id^='waitlist-card-']")
+    except NoSuchElementException:
+        print("No bookings found.")
 
-for booking in bookings:
-    class_info = booking.find_element(By.CSS_SELECTOR, value="h3[id^='booking-class-name-']")
-    print(f"✔️ Verified: {class_info.text}")
-    actual_bookings += 1
+    for booking in bookings:
+        class_info = booking.find_element(By.CSS_SELECTOR, value="h3[id^='booking-class-name-']")
+        print(f"✔️ Verified: {class_info.text}")
+        actual_bookings += 1
 
-for waitlist in waitlists:
-    class_info = waitlist.find_element(By.CSS_SELECTOR, value="h3[id^='waitlist-class-name-']")
-    print(f"✔️ Verified: {class_info.text}")
-    actual_bookings += 1
+    for waitlist in waitlists:
+        class_info = waitlist.find_element(By.CSS_SELECTOR, value="h3[id^='waitlist-class-name-']")
+        print(f"✔️ Verified: {class_info.text}")
+        actual_bookings += 1
     
+
+retry(login, description="login")
+retry(lambda: book_class("Tue", "6:00 PM"), description="booking classes")
+retry(lambda: book_class("Thu", "6:00 PM"), description="booking classes")
+retry(get_my_bookings, description="retrieving bookings")
     
 print("---VERIFICATION RESULT---")
 print(f"Expected: {total_expected_bookings} bookings")

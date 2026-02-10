@@ -1,4 +1,4 @@
-book_class = bot.find_element(By.ID, value="book-button-spin-2026-02-10-1800")
-
-# if book_class.click():
-#     print("Booked: Spin Class on Tue, Feb 12")
+retry(login, description="login")
+retry(lambda: book_class("Tue", "6:00 PM"), description="booking classes")
+retry(lambda: book_class("Thu", "6:00 PM"), description="booking classes")
+retry(get_my_bookings, description="retrieving bookings")
